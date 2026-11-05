@@ -1,0 +1,13 @@
+{
+  "seed": 42,
+  "train_queries": 20,
+  "validation_queries": 10,
+  "pool_size": 50,
+  "steps": 10,
+  "eval_every": 5,
+  "judge_max_new_pairs": 1000,
+  "judge_model": "gpt-5.4-mini-2026-03-17",
+  "wandb_project": "embedding-rl",
+  "wandb_entity": "YOUR_WANDB_ENTITY",
+  "wandb_mode": "online"
+}
