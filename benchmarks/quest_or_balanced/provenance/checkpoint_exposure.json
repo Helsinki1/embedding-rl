@@ -1,0 +1,56 @@
+[
+  {
+    "variant": "one_pass",
+    "remote_run": "/home/ubuntu/quest-or-multivector-20261106-202839/results/one_pass",
+    "config": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 32,
+      "micro_batch_size": 16,
+      "eval_batch_size": 16,
+      "eval_every": 300,
+      "learning_rate": 0.0001,
+      "max_length": 512,
+      "lora_rank": 16,
+      "lora_alpha": 32,
+      "slot_init_noise": 0.01,
+      "temperature": 0.05,
+      "max_k": 20,
+      "variant": "one_pass",
+      "steps": 3137
+    },
+    "training_data_sha256": "cffa7c81e9dca04d97bcb079b50e51b802ec87267d361b89f6c0d8ca2ca7a366",
+    "last_logged_step": 1847,
+    "exclude_through_step": 1849,
+    "selected_step": 1500,
+    "latest_checkpoint_step": 1800,
+    "original_elapsed_seconds": 1350.6398026943207
+  },
+  {
+    "variant": "three_pass",
+    "remote_run": "/home/ubuntu/quest-or-multivector-20261106-202839/results/three_pass",
+    "config": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 32,
+      "micro_batch_size": 16,
+      "eval_batch_size": 16,
+      "eval_every": 300,
+      "learning_rate": 0.0001,
+      "max_length": 512,
+      "lora_rank": 16,
+      "lora_alpha": 32,
+      "slot_init_noise": 0.01,
+      "temperature": 0.05,
+      "max_k": 20,
+      "variant": "three_pass",
+      "steps": 3137
+    },
+    "training_data_sha256": "cffa7c81e9dca04d97bcb079b50e51b802ec87267d361b89f6c0d8ca2ca7a366",
+    "last_logged_step": 687,
+    "exclude_through_step": 689,
+    "selected_step": 300,
+    "latest_checkpoint_step": 600,
+    "original_elapsed_seconds": 1351.9942445755005
+  }
+]

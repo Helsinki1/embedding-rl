@@ -93,6 +93,9 @@ def test_end_to_end_training_and_explicit_final_test(prepared, monkeypatch, meth
     assert not (directory / "test.json").exists()
     checkpoint = torch.load(directory / "best.pt", weights_only=True)
     assert checkpoint["step"] == result["best_step"]
+    last = torch.load(directory / "last.pt", weights_only=True)
+    assert last["step"] == (0 if method == "baseline" else config.steps)
+    assert last["validation_ndcg"] == result["final_validation_ndcg"]
     if method != "baseline":
         records = [json.loads(line) for line in (directory / "metrics.jsonl").read_text().splitlines()]
         assert any(row.get("train/grad_norm", 0) > 0 for row in records)

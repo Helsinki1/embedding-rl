@@ -1,0 +1,61 @@
+{
+  "version": "5000-v1",
+  "seed": 20261106,
+  "source_queries": 100519,
+  "total_queries": 5000,
+  "counts": {
+    "train": 3600,
+    "validation": 400,
+    "test": 1000
+  },
+  "training_development_side": 4000,
+  "test_fraction": 0.2,
+  "stratification": "domain/source and two-versus-three-part OR template",
+  "strata": {
+    "train": {
+      "animals:_ or _": 2,
+      "animals:_ or _ or _": 2,
+      "books:_ or _": 2,
+      "books:_ or _ or _": 3,
+      "films:_ or _": 3,
+      "films:_ or _ or _": 2,
+      "natural_questions:_ or _": 1791,
+      "natural_questions:_ or _ or _": 1791,
+      "plants:_ or _": 2,
+      "plants:_ or _ or _": 2
+    },
+    "validation": {
+      "books:_ or _ or _": 1,
+      "films:_ or _": 1,
+      "natural_questions:_ or _": 199,
+      "natural_questions:_ or _ or _": 199
+    },
+    "test": {
+      "animals:_ or _": 1,
+      "books:_ or _": 1,
+      "books:_ or _ or _": 1,
+      "films:_ or _": 1,
+      "films:_ or _ or _": 1,
+      "natural_questions:_ or _": 497,
+      "natural_questions:_ or _ or _": 497,
+      "plants:_ or _": 1
+    }
+  },
+  "exposed_training_queries_excluded": 59168,
+  "prior_evaluation_queries_excluded_from_test": 156,
+  "exposure_safety_margin": "Two additional batches beyond the last logged/requested update",
+  "test_unit": "Unseen complete query combinations; component questions/documents may recur",
+  "initialization": "Fresh pinned base model for each variant; prior trained weights are not reused",
+  "source_sha256": {
+    "data/train.jsonl": "cffa7c81e9dca04d97bcb079b50e51b802ec87267d361b89f6c0d8ca2ca7a366",
+    "data/validation.jsonl": "fbc065c0bc787637672052fe02728d573884c719e1c725224fe543eea6559e56",
+    "data/test.jsonl": "06d9308da4e9e86cb8a9ae05fdfe9f2ca345efaf8dab039d5a969d5b4c6d47b6"
+  },
+  "files": {
+    "data/test.jsonl": "6b59efdaba45d50dd550b6dac2655aa6f1357b552f26a3f8067a6c5a8cd16d6e",
+    "data/train.jsonl": "630f136454db3e6375d6895b72b45012da76a8c8f08f28c1d86375360e59e956",
+    "data/validation.jsonl": "71b97fd6aed638a0a949c959854699c9e397cdd4af52302b5f2a8502fbab5932",
+    "provenance/checkpoint_exposure.json": "5bd382aa18a6fd55fd01ad86ff35b6c3d04767a55b92d163b446418869ae2fca",
+    "provenance/excluded_from_new_holdouts.json": "731200c4435c5c0ce4ffffa2cd81bfc4e7fee23fca2961c5a99a25d95d196330"
+  }
+}

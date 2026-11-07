@@ -1,0 +1,77 @@
+{
+  "version": "quest-or-v1",
+  "templates": [
+    "_ or _",
+    "_ or _ or _"
+  ],
+  "proper_name_allowlist": [
+    "Saint Kitts and Nevis",
+    "Saint Vincent and the Grenadines",
+    "Heard Island and McDonald Islands",
+    "Heard Island and McDonald Island",
+    "Sense and Sensibility",
+    "Sj\u00f6wall and Wahl\u00f6\u00f6",
+    "Antigua and Barbuda",
+    "George G Harrap and Co"
+  ],
+  "forbidden_pattern": "\\b(and|both|also|not|without|except|excluding|neither|nor)\\b|\\bother than\\b",
+  "require_explicit_or": true,
+  "selection": "Official union template, query-only LLM eligibility, then conservative text guard; no labels or retrieval scores used.",
+  "splits": {
+    "val": {
+      "source_queries": 323,
+      "source_or_queries": 85,
+      "retained": 81,
+      "exclusion_counts": {
+        "template": 238,
+        "llm_query_audit": 4
+      },
+      "domains": {
+        "films": 26,
+        "books": 19,
+        "animals": 11,
+        "plants": 25
+      },
+      "template_counts": {
+        "_ or _": 43,
+        "_ or _ or _": 38
+      },
+      "component_counts": {
+        "2": 43,
+        "3": 38
+      },
+      "sha256": {
+        "val_clean.jsonl": "8dfe41d1403f252cae1ca6e8a08e99c4c7d8df7f85aef8d79fc74c5c280ce3ee",
+        "val_excluded.jsonl": "cfab64332e3970195c3c7b5fd2dd46258f41359e29ba2965a13e2e51dcccf150"
+      }
+    },
+    "test": {
+      "source_queries": 1727,
+      "source_or_queries": 512,
+      "retained": 438,
+      "exclusion_counts": {
+        "llm_query_audit": 60,
+        "text_guard": 14,
+        "template": 1215
+      },
+      "domains": {
+        "films": 117,
+        "books": 110,
+        "plants": 101,
+        "animals": 110
+      },
+      "template_counts": {
+        "_ or _": 226,
+        "_ or _ or _": 212
+      },
+      "component_counts": {
+        "2": 240,
+        "3": 198
+      },
+      "sha256": {
+        "test_clean.jsonl": "1dca5a69f97f4b470b0e177e4189085deb5839d9462d15d4c66218d493353ac9",
+        "test_excluded.jsonl": "fb2d088384fc8f85c5c050528a54fc0c87a552b5e9f8e23b158b79cd3d3bcf0d"
+      }
+    }
+  }
+}

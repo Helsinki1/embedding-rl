@@ -1,13 +1,18 @@
-"""No credentials required: frozen corpus embeddings and training candidate pools."""
+"""Prepare frozen corpus embeddings and benchmark label/split manifests."""
 import json
+import os
 import modal
 from modal_common import ROOT, image, volume
 
 app = modal.App("embedding-rl-prepare")
 
 
-@app.function(image=image, gpu="T4", volumes={ROOT: volume}, timeout=3600, max_containers=1)
+@app.function(image=image, gpu="T4", cpu=4, volumes={ROOT: volume}, memory=16384,
+              timeout=14400, max_containers=1)
 def prepare_remote(settings):
+    # Tokenize long web pages in parallel so CPU work can keep up with the GPU.
+    os.environ["TOKENIZERS_PARALLELISM"] = "true"
+    os.environ["RAYON_NUM_THREADS"] = "4"
     from embedding_rl.config import Config
     from embedding_rl.data import prepare
     try:

@@ -12,7 +12,7 @@ secrets = [] if offline else [modal.Secret.from_name(
 
 
 @app.function(image=image, gpu="T4", volumes={ROOT: volume}, secrets=secrets,
-              timeout=7200, max_containers=1)
+              memory=8192, timeout=7200, max_containers=1)
 def train_remote(settings, method, run_id):
     from embedding_rl.config import Config
     from embedding_rl.train import final_test, train

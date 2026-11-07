@@ -1,0 +1,21 @@
+{
+  "remote_root": "/home/ubuntu/quest-spec-v2-20261106",
+  "output": "/home/davidx/Documents/Codex/2026-11-06/les/outputs/quest-spec-v2-results",
+  "training_queues": "All eleven runs completed; all eight trained methods consumed exactly 8500 examples.",
+  "wandb_project": "https://wandb.ai/yx2948-columbia-university/quest-or-spec-v2",
+  "automatic_collection": "python -m benchmarks.quest_or_spec_v2.finish",
+  "local_process_sessions": {
+    "wandb_sync": 98912,
+    "final_collection": 37474
+  },
+  "tests": "53 passed on remote runtime; 3 legacy-dataset tests deselected because old fixtures are absent from isolated snapshot; 6 new protocol tests pass locally.",
+  "user_component_metric": "Final merged results against each gold component",
+  "rescheduled": "three_pass_rl dispatched to GPU0 after its original queue completed; GPU1 duplicate guard prevents a second run.",
+  "status": "complete",
+  "wandb_history_verification": {
+    "runs": 11,
+    "trained_runs": 8,
+    "steps": 2128
+  },
+  "comparison_url": "https://wandb.ai/yx2948-columbia-university/quest-or-spec-v2/runs/lf6ys0v8"
+}

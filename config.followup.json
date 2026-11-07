@@ -1,0 +1,20 @@
+{
+  "seed": 42,
+  "training_seed": 42,
+  "train_queries": 581,
+  "validation_queries": 83,
+  "steps": 500,
+  "batch_size": 4,
+  "samples_per_query": 8,
+  "exploration_radius": 0.15,
+  "learning_rate": 0.000001,
+  "kl_weight": 0.01,
+  "eval_every": 500,
+  "eval_steps": [10, 50, 100, 250, 500],
+  "monitor_train_queries": 64,
+  "dataset": "browsecomp-plus",
+  "recall_k": 100,
+  "wandb_project": "embedding-rl",
+  "wandb_entity": "YOUR_WANDB_ENTITY",
+  "wandb_mode": "online"
+}

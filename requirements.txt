@@ -3,9 +3,9 @@ transformers==4.57.1
 datasets==3.3.2
 huggingface-hub==0.34.4
 numpy==1.26.4
+pyarrow==20.0.0
 rank-bm25==0.2.2
 openai==2.30.0
 pydantic==2.12.5
 wandb==0.19.10
 modal==1.5.3
-

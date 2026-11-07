@@ -25,7 +25,7 @@ class TinyEncoder:
 
 @pytest.fixture
 def prepared(tmp_path):
-    config = Config(train_queries=2, validation_queries=1, pool_size=4, ndcg_k=2,
+    config = Config(dataset="scifact", train_queries=2, validation_queries=1, pool_size=4, ndcg_k=2,
                     recall_k=3, steps=3, batch_size=2, eval_every=1, learning_rate=0.01,
                     exploration_radius=0.8, judge_batch_size=2, judge_max_new_pairs=8,
                     wandb_mode="disabled")

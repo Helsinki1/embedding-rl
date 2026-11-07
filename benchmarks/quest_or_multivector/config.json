@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "epochs": 1,
+  "max_steps": 113,
+  "max_run_seconds": 1800,
+  "finalization_reserve_seconds": 180,
+  "batch_size": 32,
+  "micro_batch_size": 16,
+  "eval_batch_size": 16,
+  "eval_every": 40,
+  "evaluation_kv_cache": true,
+  "learning_rate": 0.0001,
+  "max_length": 512,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "slot_init_noise": 0.01,
+  "temperature": 0.05,
+  "max_k": 20
+}

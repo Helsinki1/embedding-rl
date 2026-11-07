@@ -1,0 +1,55 @@
+{
+  "mode": "two_or_three",
+  "seed": 42,
+  "audit": {
+    "amer_data__ambigqa_train.jsonl": {
+      "raw_rows": 5323,
+      "accepted_before_overlap": 2981,
+      "exclusions": {
+        "no_eligible_annotation": 681,
+        "missing_original_rewrites": 1661
+      }
+    },
+    "amer_data__eval_data__ambigqa.jsonl": {
+      "raw_rows": 827,
+      "accepted_before_overlap": 706,
+      "exclusions": {
+        "no_eligible_annotation": 121
+      }
+    },
+    "train_test_overlaps_removed": 54
+  },
+  "counts": {
+    "train": 2634,
+    "validation": 293,
+    "test": 706
+  },
+  "arity_counts": {
+    "train": {
+      "2": 1713,
+      "3": 921
+    },
+    "validation": {
+      "3": 103,
+      "2": 190
+    },
+    "test": {
+      "2": 467,
+      "3": 239
+    }
+  },
+  "sources": {
+    "amer_data__eval_data__ambigqa.jsonl": "7fa9423f8cb8ab474f221abb6a58a8a85c8ac5df315b460fd966280a333d35e7",
+    "amer_data__ambigqa_train.jsonl": "ce784570c63d156f770458647bb3239bf143db8590d6f4590d59e4fa0332ce0d",
+    "ambignq_light.zip": "3f5dada69dec05cef1533a64945cd7bafde1aa94b0cdd6fa9a22f881206220db",
+    "amer_data__eval_data__ambigqa_query_exp.jsonl": "780c5386f8f76839c3fac936a6f3843e9c81588aafa153773d6ab693d161e5c4"
+  },
+  "splits_sha256": {
+    "train": "cc5779427f3eae027ab7f35b2a85068d724392a3d63ed2a51733e511522aef5a",
+    "validation": "b93a571b70a441da1317dc04202525dfdc71acbe2616e410da41fd410c516338",
+    "test": "6ccfb3ad3c67ac5e80a834026a88ccdf1bbee19e6179e06d70ed74b486e82043"
+  },
+  "teacher_targets": "Original human-written disambiguated questions, never answer strings or document text",
+  "corpus_access": false,
+  "note": "Custom corpus-free subset of downloaded AMER release; not the paper's 5,044-example retrieval split."
+}

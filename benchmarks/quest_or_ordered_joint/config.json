@@ -1,0 +1,14 @@
+{
+  "clause_weight": 1.0,
+  "clause_temperature": 0.05,
+  "mlp_width": 512,
+  "reader_width": 256,
+  "reader_heads": 8,
+  "priority": "fixed canonical component order from the pinned training dataset",
+  "assignment": "identity; no permutation search or Hungarian matching",
+  "schedule": "joint from the first update, one shared epoch",
+  "feedback": "own completed predictions throughout training and evaluation",
+  "missing_third_clause": "no clause loss for slot 3; all three slots retain document loss",
+  "clause_negatives": "all unique training-clause embeddings except other clauses of the same query",
+  "primary_metrics": "unchanged shared union and merged-set component metrics"
+}

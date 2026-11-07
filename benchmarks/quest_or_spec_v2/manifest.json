@@ -1,0 +1,71 @@
+{
+  "version": "quest-msmarco-nq-10000-v2",
+  "seed": 20261106,
+  "spec_document": "https://docs.google.com/document/d/1xFXwLzTk-bvELbBD_iOYTBYCnPwtd3_rbOb8flYJ6oo/edit",
+  "counts": {
+    "splits": {
+      "train": 8500,
+      "validation": 500,
+      "test": 1000
+    },
+    "by_source": {
+      "quest": {
+        "train": 441,
+        "validation": 26,
+        "test": 52
+      },
+      "msmarco": {
+        "train": 4029,
+        "validation": 237,
+        "test": 474
+      },
+      "nq": {
+        "train": 4030,
+        "validation": 237,
+        "test": 474
+      }
+    },
+    "unique_passages": 96048
+  },
+  "sources": {
+    "quest": "https://storage.googleapis.com/gresearch/quest/all_categories_filtered.csv",
+    "msmarco": {
+      "dataset": "microsoft/ms_marco",
+      "config": "v1.1",
+      "split": "train",
+      "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a"
+    },
+    "nq": {
+      "dataset": "sentence-transformers/natural-questions",
+      "revision": "f9e894e1081e206e577b4eaa9ee6de2b06ae6f17"
+    }
+  },
+  "split_policy": "QUEST atomic-category connected components; NQ/MS MARCO shared-question or shared-positive-text connected components assigned before composition; each synthetic atom used once",
+  "corpus": {
+    "model_revision": "1d8ad4ca9b3dd8059ad90a75d4983776a23d44af",
+    "scope": "Full existing 325427 QUEST + 67713 NQ corpus, plus all candidate passages for sampled MS MARCO atoms; not the 8.8M passage leaderboard"
+  },
+  "judgments": "Known positives only; unjudged documents score as nonrelevant. Two QUEST components have no accepted positive label and are excluded only from component averages.",
+  "unscorable_components": [
+    {
+      "query_id": "quest:test-0844",
+      "component": "Novels set in Yunnan"
+    },
+    {
+      "query_id": "quest:test-0847",
+      "component": "Novels set in Jiangxi"
+    }
+  ],
+  "files": {
+    "data/atoms.jsonl": "da3f5a7e8408d9d670312b909efc76bd97ae6fee25f6b9691a59de9b44bc57a4",
+    "data/corpus_added.jsonl": "24ebd7056cf1f3abbe2a93f53943b5263f0a91653de1328a14a77889fff951b7",
+    "data/test.jsonl": "db4aaf572b695d5bcf7b434d1db118b40ef551787cc56f405c7b83d55b476e4d",
+    "data/train.jsonl": "9626bd241c0ca62c6b41f6b8493189537ea872f65eaebc33388267cb877df7f1",
+    "data/train_synthetic.jsonl": "d198eb5ca6b3b1030fff75b4464b257a329c1c855a5ef4a727575afec831002b",
+    "data/validation.jsonl": "ba64ef30e3f88179a522b1cc53de5b9300c41d7911f8c62ca501642f6060c58c"
+  },
+  "source_hashes": {
+    "source/msmarco_v1.1_train.parquet": "11d5e51d70ce87b47b1c132ef7c55f4cfb93b22c122058aa0591a65c4c0dc1f1",
+    "source/quest_categories.csv": "96cd9fc5abf8851c373340580b24cd44292aed4589ea64d21bd6d46ef5be5c53"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "val.jsonl": {
+    "sha256": "7d23798af2d85460941743b1c4ab35a2edeafa7bb3e92479398e8d5f88a44da1",
+    "bytes": 906861
+  },
+  "test.jsonl": {
+    "sha256": "bde8a4f02bcf74d181af7e0659509f70517f9cc6922c014fbaf186f2a498d318",
+    "bytes": 5033415
+  },
+  "documents.zip": {
+    "sha256": "e9f14fdf9398a0270468c0b8761c0a56a05ccde639c685c2c39e2a3e5ffb910f",
+    "bytes": 347366614
+  },
+  "documents.jsonl": {
+    "sha256": "1f96b620b165aa49d82ab05715ba6c8ec8d3631e3c04bcfaee3f41872f9ca623"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "event": "vLLM process aborted during interpreter shutdown after completing and checksumming every document vector",
+  "last_saved_document_count": 67713,
+  "independent_full_corpus_loader_check": "passed; provenance/integration_check.json",
+  "gpu_memory_returned_to_prior_levels": true,
+  "data_or_vector_loss_detected": false,
+  "completed_cache_rerun": "exited successfully without re-encoding"
+}

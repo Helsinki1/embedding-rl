@@ -1,0 +1,16 @@
+{
+  "done": 67713,
+  "total": 67713,
+  "revision": "1d8ad4ca9b3dd8059ad90a75d4983776a23d44af",
+  "dimension": 4096,
+  "dtype": "float16",
+  "document_input": "text",
+  "max_length": 32768,
+  "corpus_sha256": "a49293c83376371740c7045139330f9f66ff73319c59f472002960835d40f28f",
+  "ids_sha256": "7c63007d9a983dc5d1f3b95085763d7d16215221be8c1e4c241ff3ab74a9da54",
+  "tokens": 9825791,
+  "truncated": 0,
+  "max_query_tokens": 83,
+  "elapsed_seconds_this_session": 263.37294718800695,
+  "vectors_sha256": "47054b12e6323a72dea67a46a9d1d3e8269c9a961cc616daa3b62ca6ea23f17d"
+}

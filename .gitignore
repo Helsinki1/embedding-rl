@@ -7,6 +7,35 @@ __pycache__/
 .env
 .env.*
 !.env.example
-work/
+# Keep standalone experiment utilities, but not their local data or dependencies.
+/work/**
+!/work/**/
+!/work/**/*.py
+/work/quest-training-test-deps/
+/work/**/code/
 wandb/
 
+# Local credentials and caches.
+credentials.json
+*.pem
+*.key
+.cache/
+
+# Generated reports, datasets, model weights, and experiment artifacts.
+/.slide-build/
+/output/
+/benchmarks/*/data/
+/benchmarks/*/source/
+/benchmarks/*/runs/
+/benchmarks/*/decomposition/
+/benchmarks/*/wandb_sync/
+/benchmarks/*/provenance/*.jsonl
+/benchmarks/quest_or_balanced/provenance/excluded_from_new_holdouts.json
+*.jsonl
+*.log
+*.npy
+*.npz
+*.parquet
+*.pt
+*.pth
+*.safetensors

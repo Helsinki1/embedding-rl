@@ -1,0 +1,31 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt": "You audit and decompose entity retrieval queries for an OR-only benchmark.\nRead ONLY the supplied natural-language query. Do not answer it, search, or add facts.\nKeep the query only if it unambiguously requests the UNION of two or three alternatives.\nReturn each alternative as a self-contained retrieval query, carrying over the entity\ntype and every shared modifier (dates, geography, genre, etc.) where its scope is clear.\nDo not simplify or broaden any alternative, invent entities, or omit constraints.\nNamed or compound categories (e.g. Canadian fantasy comedy films) are atomic retrieval\ndescriptions. Internal modifiers do not by themselves introduce a separate set operation.\nEXCLUDE queries with an actual AND/intersection, NOT/difference/exclusion, exclusive OR,\nor ambiguous logical scope, even if they also contain OR. In particular, ordinary\nconjunctive wording such as 'both', 'also', or 'A and B' must not be reinterpreted as OR.\nAn 'and' inside a proper name (Saint Kitts and Nevis, Sense and Sensibility, etc.) is not\na logical operation and should be preserved. A conventional noun phrase such as\n'avant-garde and experimental films' may stay an atomic description.\nFor excluded queries, return an empty components array and a concise reason.\nFor accepted queries, return exactly two or three DISTINCT components and a concise\nexplanation of the OR structure. There must be no set-level AND or NOT left inside\nany component. Be conservative if the natural-language query is ambiguous.\nOutput only the requested JSON schema.",
+  "prompt_sha256": "341eacf299940454114e87147dfebba05f950c51f41cbec9894fea1412adca44",
+  "source_counts": {
+    "val": {
+      "_ or _": 44,
+      "_ that are also both _ and _": 40,
+      "_ or _ or _": 41,
+      "_ that are not _": 44,
+      "_ that are also _": 54,
+      "_ that are also _ but not _": 44,
+      "_": 56
+    },
+    "test": {
+      "_ or _": 260,
+      "_ that are not _": 212,
+      "_ that are also _": 271,
+      "_": 260,
+      "_ that are also both _ and _": 236,
+      "_ that are also _ but not _": 236,
+      "_ or _ or _": 252
+    }
+  },
+  "usage": {
+    "input_tokens": 230004,
+    "output_tokens": 83539
+  },
+  "estimated_usd_uncached": 0.5484285,
+  "finished_at": 1793989970.8931127
+}

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "name": "QUEST + deterministic NQ OR augmentation",
+  "seed": 42,
+  "source": {
+    "dataset": "sentence-transformers/natural-questions",
+    "revision": "f9e894e1081e206e577b4eaa9ee6de2b06ae6f17",
+    "split": "train",
+    "config": "pair",
+    "file": "pair/train-00000-of-00001.parquet",
+    "url": "https://huggingface.co/datasets/sentence-transformers/natural-questions/resolve/f9e894e1081e206e577b4eaa9ee6de2b06ae6f17/pair/train-00000-of-00001.parquet",
+    "sha256": "8cfb5e5a7cb1cd09dbb035a581aa42ce5db5852acb3e70f070d89d7035887de9"
+  },
+  "counts": {
+    "source_rows": 100231,
+    "excluded_rows": {
+      "explicit_operator_in_source_query": 10941
+    },
+    "retained_rows": 89290,
+    "unique_queries": 89290,
+    "unique_passages": 67713,
+    "or2": 50000,
+    "or3": 50000,
+    "synthetic_train": 100000,
+    "original_train": 363,
+    "combined_train": 100363,
+    "validation": 78,
+    "test": 78,
+    "source_queries_used": 89290,
+    "base_corpus": 325427,
+    "combined_corpus": 393140
+  },
+  "generation": {
+    "pairs": 50000,
+    "triples": 50000,
+    "query_join": "(q1) OR (q2) [OR (q3)]",
+    "positive_merge": "set union",
+    "query_dedup": "casefold + whitespace normalization; union all source positives",
+    "document_dedup": "exact UTF-8 passage SHA256; nq: namespaced ID",
+    "source_query_filter": "\\b(?:and|or|not|without|except|excluding|neither|nor|both)\\b|n['’]t\\b|[&|]",
+    "maximum_source_query_characters": 256,
+    "pairing": "seeded shuffled anchors with sampled partners; no repeated unordered combinations",
+    "source_query_coverage": "every eligible query anchors once when example count permits"
+  },
+  "base_split_sha256": "f446566a97ee62f371193d5e52975e6124ca9c153b941e553b80ab8d53aa435c",
+  "corpus": {
+    "base": "quest_or full corpus, unchanged",
+    "append": "data/corpus_added.jsonl",
+    "added_document_encoder_input": "text only; source passage already contains title text",
+    "model_revision": "1d8ad4ca9b3dd8059ad90a75d4983776a23d44af"
+  },
+  "assumptions": [
+    "Existing QUEST and new source are treated as disjoint, as requested; no overlap audit.",
+    "Source positives are known positives, not exhaustive relevance judgments.",
+    "Evaluation query/label rows are unchanged; an expanded corpus changes retrieval difficulty."
+  ],
+  "files": {
+    "data/corpus_added.jsonl": "a49293c83376371740c7045139330f9f66ff73319c59f472002960835d40f28f",
+    "data/source_queries.jsonl": "5ce59bab98e542462ee60eef7eb72e78fff5a191cdfa3b4a8efc28dd4dbdc39c",
+    "data/test.jsonl": "06d9308da4e9e86cb8a9ae05fdfe9f2ca345efaf8dab039d5a969d5b4c6d47b6",
+    "data/train.jsonl": "cffa7c81e9dca04d97bcb079b50e51b802ec87267d361b89f6c0d8ca2ca7a366",
+    "data/train_or2.jsonl": "b9581d7d03f6a2e70ee866d252c003dd07fa85fee9597d84dbbdec9ecc620533",
+    "data/train_or3.jsonl": "c69183ea2c824fa234f5f237bb16c0b5e839a7f16a065561df4ea89956b9c739",
+    "data/train_synthetic.jsonl": "b50fb81f2370f7070ec779af8a5d54f120d4b2230453d5b4f8d329277c555bbb",
+    "data/validation.jsonl": "fbc065c0bc787637672052fe02728d573884c719e1c725224fe543eea6559e56"
+  },
+  "builder_sha256": "c915e2449ca785f2142f17088ec79af0e28e7cc228fada254b460cafc8206368"
+}

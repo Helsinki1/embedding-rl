@@ -1,4 +1,4 @@
-"""Prepare immutable corpus vectors, split manifests, and fixed training pools."""
+"""Prepare frozen corpus vectors and splits; legacy SciFact also builds pools."""
 import json
 import random
 import re
@@ -97,39 +97,85 @@ def mixed_pool(dense_scores, sparse_scores, size):
     return list(selected)[:size]
 
 
+def cached_documents(root, config, bundle):
+    """Reuse completed corpus encodings across query splits and pilot limits."""
+    for marker in sorted((root / "prepared").glob("*/manifest.json")):
+        manifest = json.loads(marker.read_text())
+        settings = manifest["preparation"]
+        if any(settings.get(key) != getattr(config, key)
+               for key in ("dataset", "model_name", "max_length")):
+            continue
+        if any(manifest["revisions"][key] != bundle["revisions"][key]
+               for key in ("model", "corpus")):
+            continue
+        saved = json.loads((marker.parent / "data.json").read_text())
+        if digest(saved) != manifest["data_fingerprint"]:
+            raise ValueError(f"Prepared data changed: {marker.parent}")
+        if saved["docs"] != bundle["docs"]:
+            continue
+        tensors = torch.load(marker.parent / "vectors.pt", map_location="cpu",
+                             weights_only=True)
+        vectors = tensors["documents"]
+        if len(vectors) != len(bundle["docs"]):
+            raise ValueError(f"Corpus vector count changed: {marker.parent}")
+        print(f"Reusing {len(vectors)} frozen document vectors from {marker.parent}", flush=True)
+        return vectors, str(marker.parent.relative_to(root))
+    return None, None
+
+
 def prepare(root: Path, config: Config, device="cpu"):
-    from rank_bm25 import BM25Okapi
     from .model import Encoder
 
     destination = prepared_dir(root, config)
     if (destination / "manifest.json").exists():
         return str(destination)
-    bundle = load_scifact(config)
+    if config.dataset == "browsecomp-plus":
+        from .browsecomp import load_browsecomp
+        bundle = load_browsecomp(config)
+    else:
+        bundle = load_scifact(config)
     encoder = Encoder(config.model_name, bundle["revisions"]["model"], device,
                       config.max_length, config.query_prefix)
-    texts = [doc_text(doc) for doc in bundle["docs"]]
-    vectors = encoder.encode_batches(texts, config.encode_batch_size)
+    vectors, reused_from = cached_documents(root, config, bundle)
+    if config.dataset == "browsecomp-plus":
+        corpus = bundle.pop("_corpus")
+        if vectors is None:
+            batches = []
+            for start in range(0, len(corpus), config.encode_batch_size):
+                batches.append(encoder.encode_batches(
+                    corpus[start:start + config.encode_batch_size]["text"], config.encode_batch_size
+                ))
+                if start % (config.encode_batch_size * 100) == 0:
+                    print(f"Encoded {start + len(batches[-1])}/{len(corpus)} documents", flush=True)
+            vectors = torch.cat(batches)
+    else:
+        texts = [doc_text(doc) for doc in bundle["docs"]]
+        if vectors is None:
+            vectors = encoder.encode_batches(texts, config.encode_batch_size)
     # Test queries are not encoded or evaluated during preparation or training.
     query_ids = bundle["splits"]["train"] + bundle["splits"]["validation"]
     query_vectors = encoder.encode_batches(
         [bundle["queries"][qid] for qid in query_ids], config.encode_batch_size, query=True
     )
-    tokenize = lambda text: re.findall(r"\w+", text.lower())  # noqa: E731
-    bm25 = BM25Okapi([tokenize(text) for text in texts])
     pools = {}
-    for index, qid in enumerate(bundle["splits"]["train"]):
-        pools[qid] = mixed_pool(
-            query_vectors[index] @ vectors.T,
-            bm25.get_scores(tokenize(bundle["queries"][qid])), config.pool_size,
-        )
+    if config.dataset == "scifact":
+        from rank_bm25 import BM25Okapi
+        tokenize = lambda text: re.findall(r"\w+", text.lower())  # noqa: E731
+        bm25 = BM25Okapi([tokenize(text) for text in texts])
+        for index, qid in enumerate(bundle["splits"]["train"]):
+            pools[qid] = mixed_pool(
+                query_vectors[index] @ vectors.T,
+                bm25.get_scores(tokenize(bundle["queries"][qid])), config.pool_size,
+            )
     bundle["pools"] = pools
     bundle["query_vector_ids"] = query_ids
     destination.mkdir(parents=True, exist_ok=True)
     write_json(destination / "data.json", bundle)
     torch.save({"documents": vectors, "queries": query_vectors}, destination / "vectors.pt")
     manifest = {
-        "schema": 1, "preparation": config.preparation_settings(),
+        "schema": 2, "preparation": config.preparation_settings(),
         "revisions": bundle["revisions"], "data_fingerprint": digest(bundle),
+        "document_vectors_reused_from": reused_from,
     }
     # This completion marker is written last; an interrupted preparation can be retried.
     write_json(destination / "manifest.json", manifest)

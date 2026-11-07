@@ -17,6 +17,9 @@ def write_json(path: Path, value) -> None:
 
 @dataclass(frozen=True)
 class Config:
+    dataset: str = "browsecomp-plus"
+    browsecomp_corpus_revision: str = "b27b02bc3e45511b8b82a13e6f90ce761df726f6"
+    browsecomp_qrels_revision: str = "144cff8e35b5eaef7e526346aa60774a9deb941f"
     model_name: str = "BAAI/bge-small-en-v1.5"
     model_revision: str = "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
     corpus_revision: str = "b3b5335604bf5ee3c4447671af975ea25143d4f5"
@@ -24,8 +27,11 @@ class Config:
     query_prefix: str = "Represent this sentence for searching relevant passages: "
     max_length: int = 512
     seed: int = 42
-    train_queries: int = 200
-    validation_queries: int = 50
+    training_seed: int | None = None
+    train_queries: int = 581
+    validation_queries: int = 83
+    max_train_queries: int | None = None
+    max_validation_queries: int | None = None
     pool_size: int = 100
     encode_batch_size: int = 32
     steps: int = 100
@@ -36,8 +42,11 @@ class Config:
     kl_weight: float = 0.01
     temperature: float = 0.05
     eval_every: int = 20
+    eval_steps: tuple[int, ...] = ()
+    monitor_train_queries: int = 0
+    advantage_std_floor: float = 0.0
     ndcg_k: int = 10
-    recall_k: int = 25
+    recall_k: int = 100
     judge_model: str = "gpt-5.4-mini-2026-03-17"
     judge_reasoning_effort: str = "low"
     judge_batch_size: int = 10
@@ -49,6 +58,17 @@ class Config:
     wandb_mode: str = "online"
 
     def __post_init__(self):
+        if self.training_seed is not None and self.training_seed < 0:
+            raise ValueError("training_seed must be nonnegative")
+        if self.advantage_std_floor < 0:
+            raise ValueError("advantage_std_floor must be nonnegative")
+        if self.monitor_train_queries < 0 or any(step < 1 for step in self.eval_steps):
+            raise ValueError("Require nonnegative monitor count and positive evaluation steps")
+        if self.dataset not in {"browsecomp-plus", "scifact"}:
+            raise ValueError("dataset must be browsecomp-plus or scifact")
+        for limit in (self.max_train_queries, self.max_validation_queries):
+            if limit is not None and limit < 1:
+                raise ValueError("Query limits must be positive")
         for key in (
             "train_queries", "validation_queries", "pool_size", "encode_batch_size", "steps",
             "batch_size", "eval_every", "ndcg_k", "recall_k", "judge_batch_size",
@@ -76,6 +96,8 @@ class Config:
 
     def preparation_settings(self):
         keys = (
+            "dataset", "browsecomp_corpus_revision", "browsecomp_qrels_revision",
+            "max_train_queries", "max_validation_queries",
             "model_name", "model_revision", "corpus_revision", "qrels_revision", "query_prefix",
             "max_length", "seed", "train_queries", "validation_queries", "pool_size",
         )

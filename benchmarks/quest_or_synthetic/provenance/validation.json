@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "synthetic_examples": 100000,
+  "combined_training_examples": 100363,
+  "added_documents": 67713,
+  "validation_queries": 78,
+  "test_queries": 78,
+  "source_queries_used": 89290,
+  "positives_per_synthetic_query": {
+    "2": 50000,
+    "3": 50000
+  },
+  "duplicate_positive_occurrences_removed": 0,
+  "checks": [
+    "frozen file hashes",
+    "source and document identities",
+    "exact OR positive unions",
+    "all positive documents present",
+    "unique synthetic combinations",
+    "original training rows preserved",
+    "evaluation rows unchanged"
+  ],
+  "reproducibility": {
+    "full_generation_repeated": true,
+    "synthetic_jsonl_sha256": "b50fb81f2370f7070ec779af8a5d54f120d4b2230453d5b4f8d329277c555bbb"
+  }
+}

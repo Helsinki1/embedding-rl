@@ -1,0 +1,40 @@
+{
+  "version": "quest-or-v1",
+  "created_utc": "2026-11-06",
+  "source": "https://arxiv.org/abs/2305.11694",
+  "splits": {
+    "validation": {
+      "path": "data/validation.jsonl",
+      "count": 81
+    },
+    "test": {
+      "path": "data/test.jsonl",
+      "count": 438
+    }
+  },
+  "sha256": {
+    "data/test.jsonl": "1dca5a69f97f4b470b0e177e4189085deb5839d9462d15d4c66218d493353ac9",
+    "data/validation.jsonl": "8dfe41d1403f252cae1ca6e8a08e99c4c7d8df7f85aef8d79fc74c5c280ce3ee",
+    "provenance/cleaning_manifest.json": "e037d140b22b49444d9b230cda798d14850b331c58618a44fde14fe4d5c1bd4c",
+    "provenance/corpus_audit.json": "83f58c6a90f121d897c494cec6875fac4a353b299bd697481a2e92114ede7f61",
+    "provenance/dataset_manifest.json": "14958cc9661a8442c7fe1f01c5a9ec0b01ff07745b3026c1c423731db3e7badb",
+    "provenance/decompositions.jsonl": "0c7df904d4c1e1695ab474e9d1f406fc6f7742f4163588a3822281b5cd472c49",
+    "provenance/source_manifest.json": "1929f4076bf8efdb10431d69baf34ff47bb500309e65792c4a5ad709aca53de5",
+    "provenance/source_test.jsonl": "bde8a4f02bcf74d181af7e0659509f70517f9cc6922c014fbaf186f2a498d318",
+    "provenance/source_validation.jsonl": "7d23798af2d85460941743b1c4ab35a2edeafa7bb3e92479398e8d5f88a44da1",
+    "provenance/test_excluded.jsonl": "fb2d088384fc8f85c5c050528a54fc0c87a552b5e9f8e23b158b79cd3d3bcf0d",
+    "provenance/val_excluded.jsonl": "cfab64332e3970195c3c7b5fd2dd46258f41359e29ba2965a13e2e51dcccf150",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "provenance/official_run_eval.py": "a95a5ae68d2707f5d4cc0059fd1ff345df82b00742e2f16d459e9d7b4515d1ce",
+    "scripts/decompose.py": "d3ba59e9bed1d83a7f4997fe6a7961de0ec7ba1634213f2e5d466d6e9329a63f",
+    "scripts/embed.py": "1acf4795c8adb3608778c8d9c3e9203a24c9a1ef7f2a402e034e9cb581e5108d",
+    "scripts/evaluate.py": "51b3ab6a8606d8e1e1b22ab02ae5f7d7cdc20b4afdf84631cf5327769ba6dfc1",
+    "scripts/freeze.py": "c1e94903a0e7f30dc4b81021c8facd3e7a7c130a69660cd7a574adc9df48eb4f",
+    "scripts/prepare.py": "4e4815a1a69e2c0ed32f9aaf53e983eac9c57ad12467585d1f097874d01e2170",
+    "scripts/retrieve_score.py": "cc18ce9ff15ceae6ffb65f636df7a54987cddb10e49268de1f34678428c0c8e1",
+    "scripts/test_evaluate.py": "9fbd2635833f9935e8461dd8bcfc1b2c598da867155068e688b005e9d2026cf0",
+    "scripts/validate_dataset.py": "f7e405bed72e8787f7ff6a7140b71515433e543f16f2f0e2974f595baa5eeeaf",
+    "scripts/verify_official_score.py": "9368d53796e102796bcf0765806b9e6efc44ad9826b9066f767ca255da21e71b"
+  },
+  "frozen": true
+}

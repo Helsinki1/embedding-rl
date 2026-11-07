@@ -36,13 +36,19 @@ def sample_actions(means, radius, count, generator=None):
     return actions, sigma
 
 
-def rloo_loss(means, actions, rewards, sigma):
+def rloo_loss(means, actions, rewards, sigma, std_floor=0.0):
     count = rewards.shape[1]
     if count < 2:
         raise ValueError("At least two samples are required")
     rewards = rewards.detach()
     baseline = (rewards.sum(1, keepdim=True) - rewards) / (count - 1)
     advantages = rewards - baseline
+    if std_floor > 0:
+        # A fixed floor prevents tiny reward differences from becoming enormous updates.
+        scale = rewards.std(dim=1, keepdim=True, unbiased=False).clamp_min(std_floor)
+        advantages = (advantages / scale).clamp(-5, 5)
+    tied = rewards.max(1).values == rewards.min(1).values
+    advantages = advantages.masked_fill(tied[:, None], 0)
     distribution = torch.distributions.Normal(means.unsqueeze(1), sigma)
     log_prob = distribution.log_prob(actions.detach()).sum(-1)
     return -(advantages * log_prob).mean(), advantages
@@ -54,18 +60,23 @@ def gaussian_kl(means, reference, sigma):
 
 
 def retrieval_rewards(actions, document_vectors, grades, k):
-    scores = torch.einsum("bgd,bcd->bgc", F.normalize(actions, dim=-1), document_vectors)
+    if document_vectors.ndim == 2:
+        scores = F.normalize(actions, dim=-1) @ document_vectors.T
+    else:
+        scores = torch.einsum("bgd,bcd->bgc", F.normalize(actions, dim=-1), document_vectors)
     return ndcg(scores, grades, k), scores.argmax(-1)
 
 
-def infonce_loss(means, document_vectors, grades, temperature):
-    """Multi-positive InfoNCE: labels 2/3 are useful, 0/1 are negatives."""
-    logits = torch.einsum("bd,bcd->bc", means, document_vectors) / temperature
-    positives = grades >= 2
+def infonce_loss(means, document_vectors, grades, temperature, positive_grade=2):
+    """Multi-positive InfoNCE; binary benchmark labels use positive_grade=1."""
+    if document_vectors.ndim == 2:
+        logits = (means @ document_vectors.T) / temperature
+    else:
+        logits = torch.einsum("bd,bcd->bc", means, document_vectors) / temperature
+    positives = grades >= positive_grade
     if not positives.any(-1).all():
-        raise ValueError("Every training query needs at least one grade >= 2")
+        raise ValueError(f"Every training query needs at least one grade >= {positive_grade}")
     return (
         torch.logsumexp(logits, -1)
         - torch.logsumexp(logits.masked_fill(~positives, -torch.inf), -1)
     ).mean()
-

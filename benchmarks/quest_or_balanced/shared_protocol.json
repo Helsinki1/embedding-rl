@@ -1,0 +1,18 @@
+{
+  "version": "5000-v1",
+  "dataset": "benchmarks/quest_or_balanced",
+  "manifest_sha256": "d490fc270ba684d7b0e810265c0221dec2da28ba09f146c15e4455b0a815dbf4",
+  "total_queries": 5000,
+  "training_pool": 4000,
+  "gradient_training": 3600,
+  "validation": 400,
+  "test": 1000,
+  "files": {
+    "data/test.jsonl": "6b59efdaba45d50dd550b6dac2655aa6f1357b552f26a3f8067a6c5a8cd16d6e",
+    "data/train.jsonl": "630f136454db3e6375d6895b72b45012da76a8c8f08f28c1d86375360e59e956",
+    "data/validation.jsonl": "71b97fd6aed638a0a949c959854699c9e397cdd4af52302b5f2a8502fbab5932",
+    "provenance/checkpoint_exposure.json": "5bd382aa18a6fd55fd01ad86ff35b6c3d04767a55b92d163b446418869ae2fca",
+    "provenance/excluded_from_new_holdouts.json": "731200c4435c5c0ce4ffffa2cd81bfc4e7fee23fca2961c5a99a25d95d196330"
+  },
+  "scope": "All future approaches in this QUEST/NQ comparison reuse the exact frozen query files."
+}

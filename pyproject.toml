@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "embedding-rl"
 version = "0.1.0"
-description = "Query-only embedding RL with cached relevance judgments, Modal, and W&B"
+description = "Query-only embedding RL on BrowseComp-Plus, with Modal and W&B"
 requires-python = ">=3.10"
 dynamic = ["dependencies"]
 

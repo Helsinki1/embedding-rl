@@ -1,0 +1,9 @@
+{
+  "base_documents": 325427,
+  "added_documents": 67713,
+  "total": 393140,
+  "combined_corpus": "/home/ubuntu/quest-or-synthetic-20261106/corpus/documents.jsonl",
+  "sha256": "67ab84f6581fa8a646d37dc34ab4146867b5d553d9c08b07087f5f1bfb947dee",
+  "base_corpus_sha256": "1f96b620b165aa49d82ab05715ba6c8ec8d3631e3c04bcfaee3f41872f9ca623",
+  "added_corpus_sha256": "a49293c83376371740c7045139330f9f66ff73319c59f472002960835d40f28f"
+}

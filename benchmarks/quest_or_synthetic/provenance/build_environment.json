@@ -1,0 +1,8 @@
+{
+  "python": "3.10.12",
+  "pyarrow": "17.0.0",
+  "tests": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q benchmarks/quest_or_synthetic/test_synthetic.py",
+    "passed": 5
+  }
+}

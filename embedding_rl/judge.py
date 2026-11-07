@@ -61,6 +61,8 @@ def validate_grades(parsed, expected_ids):
 
 
 def judge(root, config, client=None, on_batch=None):
+    if config.dataset == "browsecomp-plus":
+        raise ValueError("BrowseComp-Plus uses benchmark evidence labels; skip the judge stage")
     path, manifest, bundle, _ = load_prepared(root, config)
     directory = cache_dir(path, config, manifest)
     pending = []
