@@ -1,9 +1,9 @@
-# Query embedding RL on BrowseComp-Plus
+# Multi-query embeddings
 
 For the current **Qwen3 QUEST / MS MARCO / NQ OR-retrieval comparison**, use
 [`benchmarks/quest_or_spec_v2`](benchmarks/quest_or_spec_v2/README.md): the shared
 10,000-query split, rank-32 LoRA, eleven approaches, component metrics, and W&B
-logging. The BrowseComp-Plus workflow documented below is a separate experiment.
+logging. 
 
 This repository publishes the experiment source code, tests, configuration,
 documentation, and standalone utilities under `work/`. Downloaded datasets,
